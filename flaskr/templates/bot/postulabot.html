@@ -1,0 +1,87 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="w-full h-screen flex flex-col bg-neutral-950 antialiased">
+  <!-- Header -->
+  <header class="border-b border-neutral-800">
+    <nav
+      class="flex items-center justify-between text-white p-4 h-16 max-w-7xl mx-auto w-full"
+    >
+      <img
+        src="{{ url_for('static', filename='img/postulabot_w.svg') }}"
+        alt="Postulabot"
+        class="size-12"
+      />
+      <ul class="flex space-x-6 items-center">
+        <li>
+          <a
+            href="#"
+            class="text-neutral-300 hover:text-stone-500 transition-colors"
+            >
+            {{ g.user.fullname }}
+            </a
+          >
+        </li>
+        <li>
+          <a
+            href={{ url_for('auth.logout') }}
+            class="bg-neutral-800 hover:bg-neutral-700 px-4 py-2 rounded-lg transition-colors"
+            >Logout</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Chat Container -->
+  <div class="flex-1 w-full overflow-y-auto">
+    <div class="max-w-4xl mx-auto p-4 h-[calc(100vh-8rem)]">
+      <!-- Chat History -->
+      <div class="space-y-4 mb-4">
+        <!-- Mensaje Usuario -->
+        <div class="flex justify-end">
+          <div
+            class="max-w-[80%] bg-stone-600/90 text-neutral-50 p-4 rounded-xl rounded-br-none"
+          >
+            <p>¿Cómo puedo mejorar mi CV para trabajos de diseño gráfico?</p>
+          </div>
+        </div>
+
+        <!-- Respuesta Bot -->
+        <div class="flex justify-start">
+          <div
+            class="max-w-[80%] bg-neutral-800 text-neutral-100 p-4 rounded-xl rounded-tl-none"
+          >
+            <p class="leading-relaxed">
+              Para mejorar tu CV en diseño gráfico: 1. Prioriza el diseño visual
+              limpio 2. Muestra tu portfolio de forma destacada 3. Usa
+              tipografías profesionales 4. Incluye solo trabajos relevantes 5.
+              Añade elementos interactivos si es digital
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div>
+    <div class="max-w-4xl mx-auto p-4">
+      <div class="flex items-end gap-2 relative">
+        <div
+          contenteditable="true"
+          role="textbox"
+          placeholder="Escribe tu pregunta..."
+          class="w-full max-h-48 px-4 py-2 bg-neutral-800 border border-neutral-700 rounded-xl focus:ring-2 focus:ring-stone-500/50 focus:outline-none text-neutral-100 overflow-y-auto [&:empty::before]:content-[attr(placeholder)] [&:empty::before]:text-neutral-500"
+        ></div>
+        <button
+          type="button"
+          class="mb-1 px-4 py-2 bg-gradient-to-r from-stone-600/90 to-stone-700 text-neutral-50 rounded-lg hover:from-stone-500/90 hover:to-stone-600 transition-colors h-fit"
+        >
+          Enviar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

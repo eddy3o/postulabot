@@ -1,0 +1,155 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="min-h-screen flex flex-col bg-neutral-950">
+  <!-- Header -->
+  <header class="border-b border-neutral-800">
+    <nav
+      class="flex items-center justify-between text-white p-4 h-16 max-w-7xl mx-auto w-full"
+    >
+      <img
+        src="{{ url_for('static', filename='img/postulabot_w.svg') }}"
+        alt="Postulabot"
+        class="size-12"
+      />
+      <ul class="flex space-x-6 items-center">
+        <li>
+          <a
+            href="#"
+            class="text-neutral-300 hover:text-stone-500 transition-colors"
+            >Nosotros</a
+          >
+        </li>
+        <li>
+          <a
+            href="#"
+            class="text-neutral-300 hover:text-stone-500 transition-colors"
+            >Proyecto</a
+          >
+        </li>
+        <li>
+          <a
+            href={{ url_for('bot.bot') }}
+            class="bg-neutral-800 hover:bg-neutral-700 px-4 py-2 rounded-lg transition-colors"
+            >Login</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <main class="flex-1">
+    <div class="max-w-7xl mx-auto px-4 py-20">
+      <div class="text-center space-y-6">
+        <h1
+          class="text-7xl font-bold bg-gradient-to-r from-neutral-100 to-neutral-200 bg-clip-text text-transparent"
+        >
+          PostulaBot
+        </h1>
+        <p class="text-2xl text-neutral-300 max-w-2xl mx-auto">
+          Tu asistente inteligente para postulaciones a fondos de financiamiento
+        </p>
+        <div class="mt-8 flex justify-center gap-4">
+          <a
+            href={{ url_for('bot.bot') }}
+            class="bg-stone-600 hover:bg-stone-700 px-8 py-3 rounded-xl text-lg font-medium transition-colors"
+          >
+            Comenzar Gratis
+          </a>
+          <a
+            href="#"
+            class="border border-stone-600 text-stone-500 hover:bg-stone-900/30 px-8 py-3 rounded-xl text-lg transition-colors"
+          >
+            Ver Demo
+          </a>
+        </div>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="grid md:grid-cols-3 gap-8 mt-20">
+        <div class="bg-neutral-900 p-6 rounded-xl border border-neutral-800">
+          <div
+            class="w-12 h-12 bg-stone-600/20 rounded-lg flex items-center justify-center mb-4"
+          >
+            <svg
+              class="w-6 h-6 text-stone-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Análisis de PDF</h3>
+          <p class="text-neutral-400">
+            Sube bases de concursos y obtén insights clave usando IA
+          </p>
+        </div>
+
+        <div class="bg-neutral-900 p-6 rounded-xl border border-neutral-800">
+          <div
+            class="w-12 h-12 bg-stone-600/20 rounded-lg flex items-center justify-center mb-4"
+          >
+            <svg
+              class="w-6 h-6 text-stone-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 10V3L4 14h7v7l9-11h-7z"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">Asistente Dual</h3>
+          <p class="text-neutral-400">
+            Combina GPT-3.5 y Llama 3 para mejores respuestas
+          </p>
+        </div>
+
+        <div class="bg-neutral-900 p-6 rounded-xl border border-neutral-800">
+          <div
+            class="w-12 h-12 bg-stone-600/20 rounded-lg flex items-center justify-center mb-4"
+          >
+            <svg
+              class="w-6 h-6 text-stone-500"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+              />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2">RAG Avanzado</h3>
+          <p class="text-neutral-400">
+            Búsqueda semántica en documentos con Chroma DB
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-neutral-800">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+      <div class="text-center text-neutral-400">
+        <p>&copy; 2024 PostulaBot. Impulsado por OpenAI y Llama 3</p>
+      </div>
+    </div>
+  </footer>
+</div>
+
+{% endblock %}
