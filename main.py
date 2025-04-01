@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import json
 from langchain_community.llms import Ollama
 from openai import OpenAI
 import os
@@ -23,8 +24,10 @@ client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 app = Flask(__name__)
 
 # Llama 3 Model
-cached_llm = Ollama(model="llama3")
-
+cached_llm = Ollama(
+    model="llama3",
+    base_url="http://localhost:11434"  # Explicitly set the Ollama endpoint
+)
 
 folder_path = "db"
 chat_history = []
@@ -45,7 +48,7 @@ Answer:
 
 @app.route('/')
 def inicio():
-    return render_template('index.html')
+    return {"Inicio": "Inicio"}
 
 @app.route('/login')
 def login():
@@ -68,7 +71,10 @@ def Proyecto():
 @app.route('/postulabot', methods=['GET', 'POST'])
 def postulabot():
     if request.method == 'GET':
-        return render_template('postulabot.html')
+        return {
+            "status": "success",
+            "message": "GET request received"
+        }
     if request.form['prompt_user']:
         # Get the message input from the the user
         prompt = 'Empreendedor:' + request.form['prompt_user']
@@ -92,9 +98,15 @@ def postulabot():
         # Add the user input and bot response to the chat history
         chat_history.append(prompt)
         chat_history.append(chat_response)
-        return render_template('postulabot.html', chat=chat_history)
+        return {
+            "status": "success",
+            "message": "POST request received with prompt",
+        }
     else:
-        return render_template('postulabot.html')
+        return {
+            "status": "error",
+            "message": "POST request received without prompt"
+        }
 
     # Render the Bot template with the response text
     # return user_input
