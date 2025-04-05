@@ -43,7 +43,7 @@ Answer:
 
 bp = Blueprint('bot', __name__, url_prefix='/bot')
 
-@bp.route('/bot', methods=['GET', 'POST'])
+@bp.route('/bot', methods=['GET'])
 @login_required
 def bot():
     db = get_db()
@@ -51,6 +51,28 @@ def bot():
     user = db.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
         
     return render_template('bot/postulabot.html', user=user)
+
+
+@bp.route('/olla', methods=['GET'])
+@login_required
+def olla():
+    db = get_db()
+    user_id = g.user['id']
+    user = db.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
+        
+    return render_template('bot/ollama.html', user=user)
+
+@bp.route('/ollafiles', methods=['GET'])
+@login_required
+def ollafiles():
+    db = get_db()
+    user_id = g.user['id']
+    user = db.execute('SELECT * FROM user WHERE id = ?', (user_id,)).fetchone()
+        
+    return render_template('bot/ollamafiles.html', user=user)
+
+
+# GPT-3.5 Chatbot 
 
 
 @bp.route('/chat', methods=['POST'])
@@ -82,6 +104,37 @@ def chat():
     session.modified = True 
 
     return jsonify({'user_message': prompt, 'bot_response': chat_response})
+
+
+# Ollama Chatbot
+
+
+@bp.route('/ask', methods=['POST'])
+@login_required
+def ask():
+    data = request.get_json()  
+    if 'chat_history' not in session:
+        session['chat_history'] = []
+
+    prompt = data.get('inputMessage', '').strip() 
+    
+    if not prompt:
+        return jsonify({'error': "Por favor, escribe un mensaje antes de enviar."}), 400
+
+    session['chat_history'].append({'role': 'user', 'content': prompt})
+
+    session['chat_history'] = session['chat_history'][-10:]
+
+    response = cached_llm.invoke(prompt)
+
+    session['chat_history'].append({'role': 'assistant', 'content': response})
+    session.modified = True 
+
+    return jsonify({'user_message': prompt, 'bot_response': response})
+
+
+# Ollama PDF RAG
+
 
 @bp.route('/ask_pdf', methods=['POST'])
 @login_required
